@@ -52,5 +52,7 @@ public function isAuthorized($user) {
 
 public function beforeFilter() {
 	$this->Auth->allow('index', 'view');
+	$this->set('auth',$this->Auth->loggedIn());
+	$this->set('user',$this->Auth->user());
 }
 }
