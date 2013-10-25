@@ -11,7 +11,7 @@
     // 投稿のオーナーは編集や削除ができる
     if (in_array($this->action, array('edit', 'delete'))) {
         $postId = $this->request->params['pass'][0];
-        if ($this->Post->isOwnedBy($postId, $user['id'])) {
+        if ($this->Comment->isOwnedBy($postId, $user['id'])) {
             return true;
         }
     }
@@ -33,21 +33,22 @@
 		$this->Session->setFlash('failed!');
 	}
 }
-   /* public function delete($id) {
+   public function delete($id) {
     if ($this->request->is('get')) {
     throw new MethodNotAllowedException();
     }
-    if ($this->request->is('ajax')) {
-    if ($this->Post->delete($id)) {
-    $this->autoRender = false;
+    if ($this->request->is('post')) {       
+        if ($this->Comment->delete($id)) {
+        $this->Session->setFlash('Deleted!');
+    /*$this->autoRender = false;
     $this->autoLayout = false;
     $response = array('id' => $id);
     $this->header('Content-Type: application/json');
     echo json_encode($response);
-    exit();
+    exit();*/
+        }
     }
+    $this->redirect(array('controller'=>'posts', 'action'=>'index'));
     }
-    $this->redirect(array('action'=>'index'));
-    }
-     */
-    }
+}
+    

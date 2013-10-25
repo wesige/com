@@ -8,7 +8,15 @@
 
 <ul>
 <?php foreach ($post['Comment'] as $comment): ?>
-<li><?php echo h($comment['body']) ?> by <?php echo h($comment['commenter']); ?></li>
+<li><?php echo h($comment['body']) ?> by <?php echo h($comment['commenter']); ?>
+	    <?php if ($auth) : ?>
+<?php
+if ($comment['user_id'] == $user['id']){
+echo $this->Form->postLink('さくじょ', array('controller' => 'comments', 'action'=>'delete', $comment['id']), array('confirm'=>'sure?'));
+}
+?>
+    <?php endif; ?>
+</li>
 <?php endforeach; ?>
 </ul>
 <h2>Add Comment</h2>
